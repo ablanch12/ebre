@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>East Bay Real Estate Dinner 2026</title>
+<meta name="description" content="RSVP page for a hosted dinner at Postino, Lafayette">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Karla:wght@400;500;600&display=swap">
+<style>
+  /* Layout: full-bleed dusk skyline opener, a single centered column underneath,
+     one card (the RSVP form) that reads as the only object on the page. */
+  :root {
+    --bg: #f6f1ea;          /* warm linen */
+    --fg: #1d1a24;
+    --muted: #6b6474;
+    --surface: #ffffff;
+    --line: #e1d8cc;
+    --ember: #c2552a;       /* sunset accent */
+    --ember-ink: #ffffff;
+    --dusk: #121a2e;        /* always-dark hero ground */
+    --dusk-fg: #f7efe3;
+    --ok: #2f7a55;
+    --warn: #b7791f;
+    --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --font-body: "Karla", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15131b; --fg: #efe8de; --muted: #a39aa8; --surface: #1f1c27;
+      --line: #342f3d; --ember: #e2794a; --ember-ink: #1a0d08; --ok: #6fc094; --warn: #e0a84a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15131b; --fg: #efe8de; --muted: #a39aa8; --surface: #1f1c27;
+    --line: #342f3d; --ember: #e2794a; --ember-ink: #1a0d08; --ok: #6fc094; --warn: #e0a84a;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 300; margin: 0; text-wrap: balance; }
+
+  .hero { position: relative; background: var(--dusk); color: var(--dusk-fg); overflow: hidden; }
+  .hero img { display: block; width: 100%; max-width: 100%; height: 46vh; min-height: 300px; max-height: 480px; object-fit: cover; object-position: center 60%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(18,26,46,0) 35%, rgba(18,26,46,.92) 100%); pointer-events: none; }
+  .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-block: 0 28px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); z-index: 1; }
+  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; opacity: .85; margin: 0 0 8px; }
+  .hero h1 { font-size: clamp(32px, 8.5vw, 54px); line-height: 1.02; font-variation-settings: "opsz" 144; }
+  .hero h1 em { font-style: italic; }
+
+  .wrap { max-width: 520px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+
+  .details { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; }
+  .details div { min-width: 0; }
+  .details dt { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 2px; }
+  .details dd { margin: 0; font-size: 17px; line-height: 1.3; }
+  .details .wide { grid-column: 1 / -1; }
+
+  .venue { display: grid; gap: 12px; }
+  .venue img { display: block; width: 100%; max-width: 100%; aspect-ratio: 3 / 1.25; object-fit: cover; border-radius: 10px; }
+  .venue p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .seats { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); }
+  .seats strong { color: var(--fg); font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 63%; background: var(--ember); border-radius: 99px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 18px; box-shadow: 0 12px 30px -18px rgba(29,26,36,.35); display: grid; gap: 18px; }
+  .card h2 { font-size: 28px; }
+  .invited { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ok); font-weight: 600; }
+  .invited::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
+
+  label.field { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row2 > * { min-width: 0; }
+  input[type=text], input[type=email], input[type=tel], textarea, select { width: 100%; font: inherit; font-weight: 400; font-size: 16px; padding: 12px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); }
+  textarea { min-height: 74px; resize: vertical; }
+  input:focus, textarea:focus, select:focus, button:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+
+  .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice span { display: block; text-align: center; padding: 14px 10px; border: 1px solid var(--line); border-radius: 8px; font-weight: 600; cursor: pointer; }
+  .choice input:checked + span { background: var(--ember); color: var(--ember-ink); border-color: var(--ember); }
+  .choice input:focus-visible + span { outline: 2px solid var(--ember); outline-offset: 2px; }
+
+  .plusone { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+  .plusone input { width: 20px; height: 20px; accent-color: var(--ember); }
+
+  .btn { display: block; text-align: center; text-decoration: none; font: inherit; font-weight: 600; font-size: 17px; padding: 15px; border: 0; border-radius: 10px; background: var(--ember); color: var(--ember-ink); cursor: pointer; width: 100%; box-sizing: border-box; }
+  .fine { font-size: 13px; color: var(--muted); margin: 0; }
+
+  .done { display: grid; gap: 10px; text-align: center; padding-block: 8px; }
+  .done h2 { font-size: 30px; }
+  .done p { margin: 0; }
+  .pill { justify-self: center; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 99px; background: var(--line); }
+  .pill.wait { color: var(--warn); }
+
+  .cal { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .cal a { flex: 1 1 140px; text-align: center; font-size: 14px; font-weight: 600; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--fg); text-decoration: none; background: var(--surface); }
+  .cal a:hover { border-color: var(--ember); }
+  .formwrap { margin: 0 -18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+  .formwrap iframe { display: block; width: 100%; height: 1500px; border: 0; }
+  .fine a { color: var(--ember); }
+  footer { text-align: center; font-size: 13px; color: var(--muted); display: grid; gap: 22px; }
+  .hosts { margin: 0; display: grid; gap: 4px; color: var(--fg); }
+  .hosts .lbl { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .hosts .nm { font-size: 16px; font-weight: 600; line-height: 1.2; }
+  .hosts .co { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .hosts .co:last-child { margin-bottom: 0; }
+  footer a { color: inherit; }
+  @media (prefers-reduced-motion: no-preference) { .card { transition: opacity .25s; } }
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <img src="img/skyline.jpg" alt="San Francisco skyline at dusk from the Oakland hills">
+  <div class="hero-text">
+    <p class="eyebrow">You're invited</p>
+    <h1>East Bay Real Estate Dinner 2026</h1>
+  </div>
+</header>
+
+<main class="wrap">
+  <dl class="details">
+    <div class="wide"><dt>Date</dt><dd>Wednesday, November 11</dd></div>
+    <div class="wide"><dt>Schedule</dt><dd>6:00 PM: Cocktails on the patio<br>7:15 PM: Dinner in the family room</dd></div>
+    <div class="wide"><dt>Where</dt><dd>Postino<br>3565 Mt Diablo Blvd, Lafayette, CA 94549</dd></div>
+    <div class="wide"><dt>Cost</dt><dd>Payment true up after based on actual costs. Estimated $225 per person, depending on how much tequila gets consumed.</dd></div>
+  </dl>
+
+  <section class="venue">
+    <img src="img/postino.png" alt="Postino, a brick, ivy-covered restaurant in Lafayette at dusk">
+    <p>Seats are limited, so reply early.</p>
+  </section>
+
+  <div id="seatblock" data-cap="3" data-confirmed="0" data-updated="">
+    <div class="seats"><span><strong id="taken">0</strong> of <span id="cap">3</span> seats confirmed</span><span id="open">3 open</span></div>
+    <div class="bar"><i id="barfill" style="width:0%"></i></div>
+    <p class="fine" style="margin-top:8px">Once all seats are taken, every new RSVP goes on a waitlist in the order received. Seymour will email you if a seat opens. <span id="asof"></span></p>
+  </div>
+
+  <section class="card" id="rsvp">
+    <div>
+      <h2>Will you join us?</h2>
+      <p class="fine" style="margin-top:6px">Takes about a minute. Seymour confirms your seat or waitlist spot by email within the hour.</p>
+    </div>
+    <div class="formwrap">
+      <iframe id="gform" src="https://docs.google.com/forms/d/e/1FAIpQLSepsVdEEbaGxDiGgf8Gy8z0CLkwHD1qom4YcLsBQJ1VZ-8Fsw/viewform?embedded=true" title="RSVP form" loading="lazy">Loading…</iframe>
+    </div>
+    <p class="fine">Trouble with the form? <a href="https://docs.google.com/forms/d/e/1FAIpQLSepsVdEEbaGxDiGgf8Gy8z0CLkwHD1qom4YcLsBQJ1VZ-8Fsw/viewform" target="_blank" rel="noopener">Open it in a new tab.</a></p>
+    <p class="fine">Add it to your calendar now so you don't forget:</p>
+    <div class="cal" id="cal">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=East%20Bay%20Real%20Estate%20Dinner%202026&dates=20261112T020000Z/20261112T053000Z&details=6%3A00%20PM%20Cocktails%20on%20the%20patio%0A7%3A15%20PM%20Dinner%20in%20the%20family%20room&location=Postino%2C%203565%20Mt%20Diablo%20Blvd%2C%20Lafayette%2C%20CA%2094549" target="_blank" rel="noopener">Google Calendar</a>
+      <a href="https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=East%20Bay%20Real%20Estate%20Dinner%202026&startdt=2026-11-11T18%3A00%3A00&enddt=2026-11-11T21%3A30%3A00&location=Postino%2C%203565%20Mt%20Diablo%20Blvd%2C%20Lafayette%2C%20CA%2094549&body=6%3A00%20PM%20Cocktails%20on%20the%20patio%0A7%3A15%20PM%20Dinner%20in%20the%20family%20room" target="_blank" rel="noopener">Outlook</a>
+    </div>
+  </section>
+
+  <footer><div class="hosts"><span class="lbl">Hosted by</span><span class="nm">Andrew Blanchard</span><span class="co">Harrison Street Asset Management</span><span class="nm">Jordan Angel</span><span class="co">Jones Lang LaSalle</span><span class="nm">Seymour Yield</span><span class="co">EBRE Accounting Department</span></div>Questions? Write Seymour at <a href="mailto:seymour.yield@gmail.com">seymour.yield@gmail.com</a></footer>
+</main>
+
+<script>
+  (function () {
+    var b = document.getElementById('seatblock');
+    function render(cap, taken, updated) {
+      var shown = Math.min(taken, cap);
+      document.getElementById('taken').textContent = shown;
+      document.getElementById('cap').textContent = cap;
+      document.getElementById('open').textContent = taken >= cap ? 'Full \u00b7 waitlist open' : (cap - taken) + ' open';
+      document.getElementById('barfill').style.width = (shown / cap * 100) + '%';
+      document.getElementById('asof').textContent = updated ? 'Count as of ' + updated + '.' : '';
+    }
+    render(+b.dataset.cap, +b.dataset.confirmed, b.dataset.updated);
+    fetch('count.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (c) {
+      render(c.cap, c.confirmed, c.updated);
+    }).catch(function () {});
+  })();
+</script>
+
+</body>
+</html>
