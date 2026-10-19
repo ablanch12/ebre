@@ -137,8 +137,8 @@
     <p>Seats are limited, so reply early.</p>
   </section>
 
-  <div id="seatblock" data-cap="3" data-confirmed="0" data-updated="">
-    <div class="seats"><span><strong id="taken">0</strong> of <span id="cap">3</span> seats confirmed</span><span id="open">3 open</span></div>
+  <div id="seatblock" data-cap="65" data-confirmed="0" data-updated="">
+    <div class="seats"><span><strong id="taken">0</strong> of <span id="cap">65</span> seats confirmed</span><span id="open">65 open</span></div>
     <div class="bar"><i id="barfill" style="width:0%"></i></div>
     <p class="fine" style="margin-top:8px">Once all seats are taken, every new RSVP goes on a waitlist in the order received. Seymour will email you if a seat opens. <span id="asof"></span></p>
   </div>
@@ -165,25 +165,17 @@
 <script>
   (function () {
     var b = document.getElementById('seatblock');
-    function render(cap, taken, updated) {
-      var shown = Math.min(taken, cap);
+    function render(cap, taken, updated, full) {
+      var shown = full ? cap : Math.min(taken, cap);
       document.getElementById('taken').textContent = shown;
       document.getElementById('cap').textContent = cap;
-      document.getElementById('open').textContent = taken >= cap ? 'Full \u00b7 waitlist open' : (cap - taken) + ' open';
+      document.getElementById('open').textContent = full ? 'Full \u00b7 waitlist open' : (cap - shown) + ' open';
       document.getElementById('barfill').style.width = (shown / cap * 100) + '%';
       document.getElementById('asof').textContent = updated ? 'Count as of ' + updated + '.' : '';
     }
-    render(+b.dataset.cap, +b.dataset.confirmed, b.dataset.updated);
-    var f = document.getElementById('gform'), loads = 0;
-    f.addEventListener('load', function () {
-      loads++;
-      if (loads > 1) {
-        f.style.height = '420px';
-        document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+    render(+b.dataset.cap, +b.dataset.confirmed, b.dataset.updated, false);
     fetch('count.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (c) {
-      render(c.cap, c.confirmed, c.updated);
+      render(c.cap, c.confirmed, c.updated, !!c.full);
     }).catch(function () {});
   })();
 </script>
