@@ -141,14 +141,15 @@
     <p>Seats are limited, so reply early.</p>
   </section>
 
-  <div id="seatblock" data-cap="65" data-confirmed="0" data-updated="">
-    <div class="seats"><span><strong id="taken">0</strong> of <span id="cap">65</span> seats taken</span><span id="open">65 open</span></div>
-    <div class="bar"><i id="barfill" style="width:0%"></i></div>
-    <p class="fine" style="margin-top:8px">Once all seats are taken, every new RSVP goes on a waitlist in the order received. Seymour will email you if a seat opens. <span id="asof"></span></p>
+  <div id="seatblock">
+    <div class="seats"><span><strong>65</strong> of 65 seats taken</span><span>Full &middot; waitlist open</span></div>
+    <div class="bar"><i style="width:100%"></i></div>
+    <p class="fine" style="margin-top:8px">This event is full. New RSVPs will be placed on a waitlist. If you are on the waitlist, Seymour will email you if there is a cancellation.</p>
+    <p class="fine" style="margin-top:6px">Note: seat availability is updated at scheduled intervals, not instantly.</p>
   </div>
 
   <section id="guests" hidden>
-    <div class="seats" style="margin-bottom:10px"><span><strong id="gcount">0</strong> confirmed so far</span><span>Who's coming</span></div>
+    <div class="seats" style="margin-bottom:10px"><span>Who's coming</span></div>
     <ul class="glist" id="glist"></ul>
   </section>
 
@@ -173,19 +174,8 @@
 
 <script>
   (function () {
-    var b = document.getElementById('seatblock');
-    function render(cap, taken, updated, full) {
-      var shown = full ? cap : Math.min(taken, cap);
-      document.getElementById('taken').textContent = shown;
-      document.getElementById('cap').textContent = cap;
-      document.getElementById('open').textContent = full ? 'Full \u00b7 waitlist open' : (cap - shown) + ' open';
-      document.getElementById('barfill').style.width = (shown / cap * 100) + '%';
-      document.getElementById('asof').textContent = updated ? 'Count as of ' + updated + '.' : '';
-    }
-    render(+b.dataset.cap, +b.dataset.confirmed, b.dataset.updated, false);
-    fetch('count.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (c) {
-      render(c.cap, c.confirmed, c.updated, !!c.full);
-    }).catch(function () {});
+    // The seat block is fixed at full; availability is managed privately from here on,
+    // so the page no longer reads count.json. guests.json still drives the names list.
     fetch('guests.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (g) {
       var list = (g && g.guests) || [];
       if (!list.length) return;
@@ -197,7 +187,6 @@
         if (p.company) { var sp = document.createElement('span'); sp.textContent = p.company; li.appendChild(sp); }
         ul.appendChild(li);
       });
-      document.getElementById('gcount').textContent = list.length;
       document.getElementById('guests').hidden = false;
     }).catch(function () {});
   })();
