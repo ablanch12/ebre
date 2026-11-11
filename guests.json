@@ -1,5 +1,5 @@
 {
- "updated": "Nov 11, 8:42 AM Pacific",
+ "updated": "Nov 11, 12:10 PM Pacific",
  "guests": [
   {
    "first": "Andrew",
@@ -330,6 +330,11 @@
    "first": "Chang Soo",
    "last": "Lee",
    "company": "Nearon Enterprises"
+  },
+  {
+   "first": "Melinda",
+   "last": "Marino",
+   "company": "Cushman"
   }
  ]
 }
